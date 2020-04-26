@@ -6,7 +6,7 @@ Help:
 -This applicaition open a PC/PC's via Wake Over Lan future.
 
 
--It saves last IP opened.
+-It saves last IP/MAC/Port opened.
 
 
 Requirements: .NET Framework 4.5

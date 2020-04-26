@@ -5,6 +5,6 @@ Help:
 
 -This applicaition open a PC/PC's via Wake Over Lan future.
 
--It saves last IP opened.
+-It saves last IP/MAC/Port opened.
 
 If you like it you can donate via paypal to l2xguard@live.com
