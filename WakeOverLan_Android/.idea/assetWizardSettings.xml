@@ -71,7 +71,8 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="scalingPercent" value="67" />
+                                                <entry key="color" value="000000" />
+                                                <entry key="scalingPercent" value="88" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -104,8 +105,7 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="foregroundAssetType" value="TEXT" />
-                                      <entry key="foregroundImage" value="F:\srv_share\andoprj\WOL\ic_launcher.bmp" />
+                                      <entry key="foregroundImage" value="F:\Download\favicon_io\android-chrome-512x512.png" />
                                     </map>
                                   </option>
                                 </PersistentState>
