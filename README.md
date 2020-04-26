@@ -8,15 +8,23 @@ The project can be updated for your needs and requirements.
 
 Windows project:
 
-Is build in C# under .NET Framework 4.5 for more compatibility among Windows users.
+*Is build in C# under .NET Framework 4.5 for more compatibility among Windows users.
 
-It saves last machine settings that was opened.
+   - FEATURES:
+
+    *It saves last machine settings that was opened.
+
+    *It checks if the IP/IP's is online.
 
 Android project:
 
+  
+*Is build andoird users that has Android O and up.
 
-Is build andoird users that has Android O and up.
+   - FEATURES:
 
-It saves last machine settings that was opened.
+    *It saves last machine settings that was opened.
+
+    *It checks if IP/IP's is online or you can check others IP/Domains too.
 
 If you like the project you can donate to my paypal: l2xguard@live.com
