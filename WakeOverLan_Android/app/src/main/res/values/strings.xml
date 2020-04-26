@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">WOL</string>
+    <string name="save">Save</string>
+    <string name="enter_machine_ip_here">Enter machine IP here!</string>
+    <string name="enter_machine_mac_here">Enter machine MAC here!</string>
+    <string name="wake">Wake</string>
+    <string name="ping">Ping</string>
+    <string name="enter_port">Enter Port</string>
+    <string name="wake_on_lan">Wake on LAN</string>
+</resources>
