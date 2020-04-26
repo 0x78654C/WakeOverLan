@@ -10,6 +10,9 @@ The project will be update by your needs if required .
     *It checks if the IP/IP's is online.
 
 
-Requirements: .NET Framework 4.5
+    REQUIREMENTS:
+    
+
+    * .NET Framework 4.5 or newer.
 
 If you like it you can donate via paypal to l2xguard@live.com
