@@ -5,6 +5,6 @@
     <string name="enter_machine_mac_here">Enter machine MAC here!</string>
     <string name="wake">Wake</string>
     <string name="ping">Ping</string>
-    <string name="enter_port">Enter Port</string>
-    <string name="wake_on_lan">Wake on LAN</string>
+    <string name="enter_port">Enter Port here!</string>
+    <string name="wake_on_lan">Wake Over LAN</string>
 </resources>
