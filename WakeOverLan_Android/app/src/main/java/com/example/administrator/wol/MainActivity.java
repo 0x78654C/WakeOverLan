@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String MAC_REGEX = "([0-9a-fA-F]{2}[-:]){5}[0-9a-fA-F]{2}";
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         TextView _stat = findViewById (R.id.textView2);
         if (!isInternetAvailable1 ()) {
             _stat.setTextColor (Color.RED);
-            _stat.setText ("No internet connection..");
+            _stat.setText ("No internet connection but can be used on LAN!");
         } else {
             _stat.setTextColor (Color.GREEN);
             _stat.setText ("Internet connection is up..");
@@ -56,10 +57,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View _view) {
                 TextView _stat = findViewById (R.id.textView2);
 
-                if (!isInternetAvailable1 ()) {
-                    _stat.setTextColor (Color.RED);
-                    _stat.setText ("No internet connection..");
-                } else {
+
                     new Thread (new Runnable () {
                         public void run() {
 
@@ -74,9 +72,14 @@ public class MainActivity extends AppCompatActivity {
 
                         }
                     }).start ();
-                    _stat.setTextColor (Color.MAGENTA);
-                    _stat.setText ("Wake packets sent!");
-                }
+                    if (isInternetAvailable1 ()) {
+                        _stat.setTextColor (Color.MAGENTA);
+                        _stat.setText ("Wake packets sent!");
+                    }else{
+                        _stat.setTextColor (Color.MAGENTA);
+                        _stat.setText ("No internet connection but wake packets are sent!");
+                    }
+
             }
 
         });
@@ -87,8 +90,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View _view) {
 
                 TextView _stat = findViewById (R.id.textView2);
-
-                if (isInternetAvailable1 ()) {
+                 EditText iptext = findViewById (R.id.editText);
+                if (pingHost (iptext.getText ().toString ())) {
                     _stat.setTextColor (Color.GREEN);
                     _stat.setText ("Online");
                 } else {
@@ -140,7 +143,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private static byte[] getMacBytes(String mac) throws IllegalArgumentException {
+    public boolean pingHost(String ip) {
+        try {
+
+            Process p1 = java.lang.Runtime.getRuntime ().exec ("ping -c 1 " + ip);
+            int returnVal = p1.waitFor ();
+            boolean reachable = (returnVal == 0);
+            return reachable;
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace ();
+        }
+        return false;
+
+    }
+
+
+        private static byte[] getMacBytes(String mac) throws IllegalArgumentException {
         if (!mac.matches (MAC_REGEX)) {
             throw new IllegalArgumentException ("Invalid MAC address");
         }
