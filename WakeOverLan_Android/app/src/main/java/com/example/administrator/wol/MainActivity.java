@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_main);
         TextView _stat = findViewById (R.id.textView2);
-        if (!isInternetAvailable1 ()) {
+        if (!isInternetAvailable ()) {
             _stat.setTextColor (Color.RED);
             _stat.setText ("No internet connection but can be used on LAN!");
         } else {
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
                         }
                     }).start ();
-                    if (isInternetAvailable1 ()) {
+                    if (isInternetAvailable ()) {
                         _stat.setTextColor (Color.MAGENTA);
                         _stat.setText ("Wake packets sent!");
                     }else{
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public boolean isInternetAvailable1() {
+    public boolean isInternetAvailable() {
         try {
             EditText iptext = findViewById (R.id.editText);
             Process p1 = java.lang.Runtime.getRuntime ().exec ("ping -c 1 www.google.com");
