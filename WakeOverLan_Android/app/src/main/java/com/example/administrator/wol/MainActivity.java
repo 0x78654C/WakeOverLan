@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     public Handler handler = null; //Define handler for _conCheck function
     public static Runnable runnable = null; //Define runnable for the handler on _conCheck function
     public Handler m_handler;//Define the handler for information messages on button's action
-
+    public Handler m_handler1;//Define the handler for orientation check
 
     @SuppressLint({"SetTextI18n", "ResourceType"})
     @Override
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         //--------------------------------
 
         _conCheck (); //Run check on connection stats
+        _oriantationView();//Run the orientation check and title remover
 
         //Set and get preferences settings on textBoxes
         myPrefs = getSharedPreferences ("prefID", Context.MODE_PRIVATE);
@@ -200,6 +202,29 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+    //-----------------------------------------
+
+    //Check view orientation and remove title from app
+
+    private void _oriantationView()
+    {
+        final int orientation = this.getResources().getConfiguration().orientation;
+        m_handler1 = new Handler();
+        m_handler1.postDelayed(new Runnable()
+        {
+            public void run()
+            {
+                TextView _stat = findViewById (R.id.textView3);
+                if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    _stat.setVisibility(View.VISIBLE);
+                } else {
+
+                    _stat.setVisibility(View.INVISIBLE);
+                }
+            }
+        }, 1000);
+
     }
     //-----------------------------------------
 
