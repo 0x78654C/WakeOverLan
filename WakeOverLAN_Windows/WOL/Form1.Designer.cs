@@ -50,7 +50,6 @@
             this.textBox1.Size = new System.Drawing.Size(134, 20);
             this.textBox1.TabIndex = 0;
             this.textBox1.Text = "255.255.255.255";
-           
             // 
             // label1
             // 
@@ -60,7 +59,6 @@
             this.label1.Size = new System.Drawing.Size(54, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Target IP:";
-       
             // 
             // button1
             // 
@@ -97,7 +95,6 @@
             this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(228, 52);
             this.textBox3.TabIndex = 5;
-          
             // 
             // textBox4
             // 
@@ -107,7 +104,6 @@
             this.textBox4.Size = new System.Drawing.Size(53, 20);
             this.textBox4.TabIndex = 6;
             this.textBox4.Text = "9";
-          
             // 
             // label3
             // 
@@ -127,7 +123,6 @@
             this.label4.Size = new System.Drawing.Size(10, 13);
             this.label4.TabIndex = 8;
             this.label4.Text = " ";
-      
             // 
             // ping_
             // 
@@ -160,7 +155,8 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;         
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
