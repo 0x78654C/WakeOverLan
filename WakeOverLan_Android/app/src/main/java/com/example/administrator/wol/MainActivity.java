@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     //and use closed source where you some times don't know what the app really dose.
 
     SharedPreferences myPrefs;
-    private static MainActivity ins;
+
     private static final String MAC_REGEX = "([0-9a-fA-F]{2}[-:]){5}[0-9a-fA-F]{2}";
     public Handler handler = null; //Define handler for _conCheck function
     public static Runnable runnable = null; //Define runnable for the handler on _conCheck function
@@ -86,25 +86,28 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View _view) {
-
-                m_handler = new Handler();
                 TextView _stat = findViewById (R.id.textView2);
-                EditText iptext = findViewById (R.id.editText);
-                EditText mactext = findViewById (R.id.editText2);
-                String broadcastIP;
-                broadcastIP = String.valueOf (iptext.getText ());
-                String mac = String.valueOf (mactext.getText ());
-                Log.d ("Read mac= ", mac);
-                Log.d ("Read ip=", broadcastIP);
-                wakeup (broadcastIP, mac);
+                m_handler = new Handler();
+                new Thread (new Runnable () {
+                    public void run() {
 
+                        EditText iptext = findViewById (R.id.editText);
+                        EditText mactext = findViewById (R.id.editText2);
+                        String broadcastIP;
+                        broadcastIP = String.valueOf (iptext.getText ());
+                        String mac = String.valueOf (mactext.getText ());
+                        Log.d ("Read mac= ", mac);
+                        Log.d ("Read ip=", broadcastIP);
+                        wakeup (broadcastIP, mac);
+
+
+                    }
+                }).start ();
                 if (isInternetAvailable ()) {
                     _stat.setTextColor (Color.MAGENTA);
                     _stat.setText ("Wake packets sent!");
-                    m_handler.postDelayed(new Runnable()
-                    {
-                        public void run()
-                        {
+                    m_handler.postDelayed (new Runnable () {
+                        public void run() {
                             TextView _stat = findViewById (R.id.textView2);
                             _stat.setTextColor (Color.MAGENTA);
                             _stat.setText ("");
@@ -115,10 +118,8 @@ public class MainActivity extends AppCompatActivity {
 
                     _stat.setTextColor (Color.MAGENTA);
                     _stat.setText ("No internet connection but wake packets are sent!");
-                    m_handler.postDelayed(new Runnable()
-                    {
-                        public void run()
-                        {
+                    m_handler.postDelayed (new Runnable () {
+                        public void run() {
                             TextView _stat = findViewById (R.id.textView2);
                             _stat.setTextColor (Color.MAGENTA);
                             _stat.setText ("");
@@ -370,7 +371,7 @@ public class MainActivity extends AppCompatActivity {
 
             Log.d ("wakeup", "calculating completed, sending...");
             EditText ptext1 = findViewById (R.id.editText3);
-            int in1 = Integer.valueOf (ptext1.getText ().toString ());
+            int in1 = Integer.parseInt (ptext1.getText ().toString ());
             InetAddress address = InetAddress.getByName (broadcastIP);
             DatagramPacket packet = new DatagramPacket (bytes, bytes.length, address, in1);
             DatagramSocket socket = new DatagramSocket ();
