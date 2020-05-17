@@ -1,5 +1,5 @@
 # WakeOverLan
-I'm a simple coder and want to share this first project with you.
+I'm a simple coder and want to share this first published project with you.
 This a simple Wake Over Lan for Windows and Android users.
 The project came from the ideea of code transparency in a tool. I kind of had enough of closed source wich you never know
 what they do beside the purpose of it.
