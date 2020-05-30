@@ -8,8 +8,10 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -143,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
                  TextView _stat = findViewById (R.id.textView2);
                  EditText iptext = findViewById (R.id.editText);
                 if (pingHost (iptext.getText ().toString ())) {
-                    _stat.setTextColor (Color.GREEN);
+                    _stat.setTextColor (Color.parseColor ("#10CD09"));
                     _stat.setText ("Online");
                     m_handler.postDelayed(new Runnable()
                     {
@@ -175,6 +177,7 @@ public class MainActivity extends AppCompatActivity {
         //Save last pc instance function button.
         Button button3 = findViewById (R.id.button3);
         button3.setOnClickListener (new View.OnClickListener () {
+            @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View _view) {
@@ -189,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString ("nameKey2", ptext.getText ().toString ());
                 editor.apply ();
                 TextView _stat = findViewById (R.id.textView2);
-                _stat.setTextColor (Color.YELLOW);
+                _stat.setTextColor (Color.parseColor ("#D2C01C"));
                 _stat.setText ("IP/MAC/Port saved!");
                 m_handler.postDelayed(new Runnable()
                 {
