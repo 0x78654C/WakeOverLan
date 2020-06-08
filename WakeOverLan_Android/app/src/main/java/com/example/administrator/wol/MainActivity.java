@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
 
                     _stat.setTextColor (Color.MAGENTA);
-                    _stat.setText ("No internet connection but wake packets are sent!");
+                    _stat.setText ("No internet connection!");
                     m_handler.postDelayed (new Runnable () {
                         public void run() {
                             TextView _stat = findViewById (R.id.textView2);
