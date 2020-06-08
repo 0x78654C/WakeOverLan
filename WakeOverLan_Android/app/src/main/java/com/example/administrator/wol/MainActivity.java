@@ -8,6 +8,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,11 +26,14 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketAddress;
 
 public class MainActivity extends AppCompatActivity {
 
     //This a simple Wake Over Lan app that came from the desire of knowing what actually dose for sure a app
-    //and use closed source where you some times don't know what the app really dose.
+    //and not use closed source where you some times don't know what the app really dose.
 
     SharedPreferences myPrefs;
 
@@ -141,33 +145,38 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View _view) {
+
                 m_handler = new Handler();
                  TextView _stat = findViewById (R.id.textView2);
                  EditText iptext = findViewById (R.id.editText);
-                if (pingHost (iptext.getText ().toString ())) {
-                    _stat.setTextColor (Color.parseColor ("#10CD09"));
-                    _stat.setText ("Online");
-                    m_handler.postDelayed(new Runnable()
-                    {
-                        public void run()
+                try {
+                    if ( pingHost(iptext.getText ().toString ())) {
+                        _stat.setTextColor (Color.parseColor ("#10CD09"));
+                        _stat.setText ("Online");
+                        m_handler.postDelayed(new Runnable()
                         {
-                            TextView _stat = findViewById (R.id.textView2);
-                            _stat.setTextColor (Color.MAGENTA);
-                            _stat.setText ("");
-                        }
-                    }, 2000);
-                } else {
-                    _stat.setTextColor (Color.RED);
-                    _stat.setText ("Offline");
-                    m_handler.postDelayed(new Runnable()
-                    {
-                        public void run()
+                            public void run()
+                            {
+                                TextView _stat = findViewById (R.id.textView2);
+                                _stat.setTextColor (Color.MAGENTA);
+                                _stat.setText ("");
+                            }
+                        }, 2000);
+                    } else {
+                        _stat.setTextColor (Color.RED);
+                        _stat.setText ("Offline");
+                        m_handler.postDelayed(new Runnable()
                         {
-                            TextView _stat = findViewById (R.id.textView2);
-                            _stat.setTextColor (Color.MAGENTA);
-                            _stat.setText ("");
-                        }
-                    }, 2000);
+                            public void run()
+                            {
+                                TextView _stat = findViewById (R.id.textView2);
+                                _stat.setTextColor (Color.MAGENTA);
+                                _stat.setText ("");
+                            }
+                        }, 2000);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace ();
                 }
 
             }
@@ -299,6 +308,7 @@ public class MainActivity extends AppCompatActivity {
     //Check internet connection via ping one time on google.
 
     public boolean isInternetAvailable() {
+
         try {
             EditText iptext = findViewById (R.id.editText);
             Process p1 = java.lang.Runtime.getRuntime ().exec ("ping -c 1 www.google.com");
@@ -311,12 +321,11 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
 
-
     }
     //---------------------------------------------
 
     //Ping function with one beacon
-    public boolean pingHost(String ip) {
+    public boolean pingHost(String ip) throws InterruptedException {
         try {
 
             Process p1 = java.lang.Runtime.getRuntime ().exec ("ping -c 1 " + ip);
@@ -328,8 +337,8 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace ();
         }
         return false;
-
     }
+
     //---------------------------------
 
     //-----------------------------------------------
