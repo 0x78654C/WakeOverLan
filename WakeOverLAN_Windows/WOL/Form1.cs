@@ -71,7 +71,7 @@ namespace WOL
 
 
 
-    
+        //Ping fucntion
         public static bool PingHost(string nameOrAddress)
         {
             bool pingable = false;
@@ -88,6 +88,7 @@ namespace WOL
             }
             return pingable;
         }
+        //------------------------------------
         public uint ReturnFirtsOctet(string ipAddress)
         {
             System.Net.IPAddress iPAddress = System.Net.IPAddress.Parse(ipAddress);
@@ -111,7 +112,7 @@ namespace WOL
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            //Loading settings from ini
             if (File.Exists("settings.ini"))
             {
                 textBox1.Text = file.IniReadValue("CONNECTION", "IPTarget");
@@ -128,12 +129,15 @@ namespace WOL
             
             if (textBox2.Text != file.IniReadValue("CONNECTION", "MAC") || textBox4.Text != file.IniReadValue("CONNECTION", "Port") || textBox1.Text != file.IniReadValue("CONNECTION", "IPMask"))
             {
+                //saving settings from textboxes to ini
   
                 file.IniWriteValue("CONNECTION", "Port", textBox4.Text);
                 file.IniWriteValue("CONNECTION", "MAC", textBox2.Text);
                 file.IniWriteValue("CONNECTION", "IPMask", textBox1.Text);
             }
-            if (textBox2.Text.Length > 0 && textBox4.Text.Length > 0 && textBox1.Text.Length > 0)
+
+
+            if (textBox2.Text.Length > 0 && textBox4.Text.Length > 0 && textBox1.Text.Length > 0)//check texboxes for null 
             {
                 try
                 {
@@ -195,7 +199,7 @@ namespace WOL
         private void timer1_Tick(object sender, EventArgs e)
         {
             
-
+            //Background woker for host check
 
             worker = new BackgroundWorker();
             worker.DoWork += (obj, ea) => pping();
@@ -205,7 +209,7 @@ namespace WOL
    
 
       
-       
+       //Check activity of host with ping function
         private void pping()
         {
 
@@ -223,6 +227,7 @@ namespace WOL
                 }
 
         }
+        //---------------------------------
      
     }
 }
