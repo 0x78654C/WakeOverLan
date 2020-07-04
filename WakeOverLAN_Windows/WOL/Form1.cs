@@ -18,7 +18,14 @@ namespace WOL
 {
 
     /// <summary>
-    /// This is a simple wake on lan project for windows 
+    /* 
+    Author: 0x78654C
+    Description: This a simple Wake Over Lan app that that came from the idea of code transparency
+    and not closed source where you some times don't know what the app really dose even if is free or not..
+    This app is distributed under the GNU GPLv3 License.
+    Usage: Is made for 1 machine only. You add the IP/Hostname(internal or external ), MAC address, and WOL port(Depending on your motherboard, the
+    default port is 9 or can be changed by desire).
+    */
     /// </summary>
     public partial class Form1 : Form
 
@@ -27,7 +34,11 @@ namespace WOL
 
         IniFile file = new IniFile(Directory.GetCurrentDirectory() + @"\settings.ini");
 
-        static string macAddress = "";
+        private static string macAddress = "";
+        private static string _IP = "";
+        private static string _MAC = "";
+        private static string _Port = "";
+        private static string _Log = ""; //Output of log
         public Form1()
         {
             InitializeComponent();
@@ -71,7 +82,11 @@ namespace WOL
 
 
 
-        //Ping fucntion
+        /// <summary>
+        /// Ping input function
+        /// </summary>
+        /// <param name="nameOrAddress"></param>
+        /// <returns></returns>
         public static bool PingHost(string nameOrAddress)
         {
             bool pingable = false;
@@ -89,6 +104,12 @@ namespace WOL
             return pingable;
         }
         //------------------------------------
+
+        /// <summary>
+        /// Get first octet from ip function
+        /// </summary>
+        /// <param name="ipAddress"></param>
+        /// <returns></returns>
         public uint ReturnFirtsOctet(string ipAddress)
         {
             System.Net.IPAddress iPAddress = System.Net.IPAddress.Parse(ipAddress);
@@ -96,6 +117,12 @@ namespace WOL
             uint ipInUint = (uint)byteIP[0];
             return ipInUint;
         }
+
+        /// <summary>
+        /// Return subnet mask from IP.
+        /// </summary>
+        /// <param name="ipaddress"></param>
+        /// <returns></returns>
         public string ReturnSubnetmask(String ipaddress)
         {
 
@@ -112,22 +139,32 @@ namespace WOL
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Loading settings from ini
+            
+            //Loading settings from ini file
             if (File.Exists("settings.ini"))
             {
-                textBox1.Text = file.IniReadValue("CONNECTION", "IPTarget");
-                textBox2.Text = file.IniReadValue("CONNECTION", "MAC");
-                textBox4.Text = file.IniReadValue("CONNECTION", "Port");
+                _IP= file.IniReadValue("CONNECTION", "IPTarget");
+                _MAC= file.IniReadValue("CONNECTION", "MAC");
+                _Port= file.IniReadValue("CONNECTION", "Port");
+
+                textBox1.Text = _IP;    //Display ip
+                textBox2.Text = _MAC;   //Display MAC
+                textBox4.Text = _Port;  //Display Port
+                
             }
         }
 
 
-
+        /// <summary>
+        /// Wake button function 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
 
         {
             
-            if (textBox2.Text != file.IniReadValue("CONNECTION", "MAC") || textBox4.Text != file.IniReadValue("CONNECTION", "Port") || textBox1.Text != file.IniReadValue("CONNECTION", "IPMask"))
+            if (_MAC != file.IniReadValue("CONNECTION", "MAC") || _Port != file.IniReadValue("CONNECTION", "Port") || _IP != file.IniReadValue("CONNECTION", "IPMask"))
             {
                 //saving settings from textboxes to ini
   
@@ -137,16 +174,16 @@ namespace WOL
             }
 
 
-            if (textBox2.Text.Length > 0 && textBox4.Text.Length > 0 && textBox1.Text.Length > 0)//check texboxes for null 
+            if (_MAC.Length > 0 && _Port.Length > 0 && _IP.Length > 0)//check texboxes for null 
             {
                 try
                 {
-                    IPAddress ip2 = IPAddress.Parse(textBox1.Text);
-                    string port = textBox4.Text;
+                    IPAddress ip2 = IPAddress.Parse(_IP);
+                    string port = _Port;
                     int p = Convert.ToInt32(port);
-                    if (textBox2.Text.Length == 17)
+                    if (_MAC.Length == 17)
                     {
-                        macAddress = textBox2.Text.Replace(":", "");
+                        macAddress = _MAC.Replace(":", "");
                         WOLUdpClient client = new WOLUdpClient();
                         client.Connect(ip2,    //255.255.255.255  i.e broadcast
                         p); // port = 12287
@@ -173,7 +210,7 @@ namespace WOL
                             }
 
                             int returnValue = client.Send(bytes, byteCount);
-                            textBox3.Text = returnValue + " bytes sent to IP Mask/MAC: " + textBox1.Text + "/" + textBox2.Text;
+                            textBox3.Text = returnValue + " bytes sent to IP Mask/MAC: " + _IP + "/" + _MAC;
                         }
 
                     }
@@ -213,7 +250,7 @@ namespace WOL
         private void pping()
         {
 
-                if (PingHost(textBox1.Text) == true)
+                if (PingHost(_IP) == true)
                 {
                     label4.ForeColor = Color.Green;
                     label4.Text = "ONLINE";

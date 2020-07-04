@@ -32,9 +32,16 @@ import java.net.SocketAddress;
 
 public class MainActivity extends AppCompatActivity {
 
-    //This a simple Wake Over Lan app that came from the desire of knowing what actually dose for sure a app
-    //and not use closed source where you some times don't know what the app really dose.
+    /*
 
+    Author: 0x78654C
+    Description: This a simple Wake Over Lan app that that came from the idea of code transparency
+    and not closed source where you some times don't know what the app really dose even if is free or not..
+    This app is distributed under the GNU GPLv3 License .
+    Usage: Is made for 1 machine only. You add the IP/Hostname(internal or external ), MAC address, and WOL port(Depending on your motherboard, the
+    default port is 9 or can be changed by desire).
+
+    */
     SharedPreferences myPrefs;
 
     private static final String MAC_REGEX = "([0-9a-fA-F]{2}[-:]){5}[0-9a-fA-F]{2}";
@@ -70,10 +77,10 @@ public class MainActivity extends AppCompatActivity {
         }
         //--------------------------------
 
-        _conCheck (); //Run check on connection stats
-        _oriantationView();//Run the orientation check and title remover
+        _conCheck (); //Checking connection status
+        _oriantationView();//Running the orientation check and title remover
 
-        //Set and get preferences settings on textBoxes
+        //Set and get shared preferences settings on textBoxes used for save machine input settings(ip, mac, port)
         myPrefs = getSharedPreferences ("prefID", Context.MODE_PRIVATE);
         String _ip = myPrefs.getString ("nameKey", "");
         String _mac = myPrefs.getString ("nameKey1", "");
@@ -86,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         ptext.setText (_port);
         //-----------------------------------------------
 
-        //Wake button for main function.
+        //Wake button function.
         Button button1 = findViewById (R.id.button);
         button1.setOnClickListener (new View.OnClickListener () {
             @SuppressLint("SetTextI18n")
@@ -139,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
         });
         //-----------------------------------------
 
-        //Ping function button.
+        //Ping button function.
         Button button2 = findViewById (R.id.button2);
         button2.setOnClickListener (new View.OnClickListener () {
             @SuppressLint("SetTextI18n")
@@ -183,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
         });
         //-----------------------------------------
 
-        //Save last pc instance function button.
+        //Save last pc instance button function.
         Button button3 = findViewById (R.id.button3);
         button3.setOnClickListener (new View.OnClickListener () {
             @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
@@ -261,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService (Context.CONNECTIVITY_SERVICE);
         if (connectivityManager.getNetworkInfo (ConnectivityManager.TYPE_MOBILE).getState () == NetworkInfo.State.CONNECTED) {
-            //we are connected to a networL
+            //we are connected to a network
             return true;
         } else {
             return false;
@@ -279,7 +286,6 @@ public class MainActivity extends AppCompatActivity {
         handler = new Handler ();
         runnable = new Runnable () {
             public void run() {
-                //  MainActivity.getInstace()._conCheck ();
                 ImageView _img1 = findViewById (R.id.imageView);
                 _img1.setImageResource (R.raw.wifi_ico_grey_24);
                 ImageView _img2 = findViewById (R.id.imageView2);
@@ -310,7 +316,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean isInternetAvailable() {
 
         try {
-            EditText iptext = findViewById (R.id.editText);
             Process p1 = java.lang.Runtime.getRuntime ().exec ("ping -c 1 www.google.com");
             int returnVal = p1.waitFor ();
             boolean reachable = (returnVal == 0);
@@ -320,11 +325,10 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace ();
         }
         return false;
-
     }
     //---------------------------------------------
 
-    //Ping function with one beacon
+    //Ping input function with one beacon
     public boolean pingHost(String ip) throws InterruptedException {
         try {
 
