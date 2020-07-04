@@ -20,11 +20,14 @@ namespace WOL
     /// <summary>
     /* 
     Author: 0x78654C
+
     Description: This a simple Wake Over Lan app that that came from the idea of code transparency
     and not closed source where you some times don't know what the app really dose even if is free or not..
     This app is distributed under the GNU GPLv3 License.
     Usage: Is made for 1 machine only. You add the IP/Hostname(internal or external ), MAC address, and WOL port(Depending on your motherboard, the
     default port is 9 or can be changed by desire).
+
+    Copyright © 2020 0x78654C. All rights reserved.
     */
     /// </summary>
     public partial class Form1 : Form
@@ -32,13 +35,13 @@ namespace WOL
     {
         BackgroundWorker worker;
 
-        IniFile file = new IniFile(Directory.GetCurrentDirectory() + @"\settings.ini");
+       readonly IniFile file = new IniFile(Directory.GetCurrentDirectory() + @"\settings.ini");
 
         private static string macAddress = "";
         private static string _IP = "";
         private static string _MAC = "";
         private static string _Port = "";
-        private static string _Log = ""; //Output of log
+        private static string sFile = Directory.GetCurrentDirectory() + @"\settings.ini";
         public Form1()
         {
             InitializeComponent();
@@ -139,8 +142,15 @@ namespace WOL
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
-            //Loading settings from ini file
+            //Check if settings file exist
+            if (!File.Exists(sFile))
+            {
+                MessageBox.Show("File settings.ini dose not exist!");
+                this.Close();
+            }
+            //------------------------------
+
+            //Loading settings from settings file
             if (File.Exists("settings.ini"))
             {
                 _IP= file.IniReadValue("CONNECTION", "IPTarget");
@@ -152,6 +162,7 @@ namespace WOL
                 textBox4.Text = _Port;  //Display Port
                 
             }
+            //--------------------------------
         }
 
 
@@ -164,13 +175,13 @@ namespace WOL
 
         {
             
-            if (_MAC != file.IniReadValue("CONNECTION", "MAC") || _Port != file.IniReadValue("CONNECTION", "Port") || _IP != file.IniReadValue("CONNECTION", "IPMask"))
+            if (_MAC != file.IniReadValue("CONNECTION", "MAC") || _Port != file.IniReadValue("CONNECTION", "Port") || _IP != file.IniReadValue("CONNECTION", "IPTarget"))
             {
                 //saving settings from textboxes to ini
   
                 file.IniWriteValue("CONNECTION", "Port", textBox4.Text);
                 file.IniWriteValue("CONNECTION", "MAC", textBox2.Text);
-                file.IniWriteValue("CONNECTION", "IPMask", textBox1.Text);
+                file.IniWriteValue("CONNECTION", "IPTarget", textBox1.Text);
             }
 
 

@@ -35,11 +35,14 @@ public class MainActivity extends AppCompatActivity {
     /*
 
     Author: 0x78654C
+    
     Description: This a simple Wake Over Lan app that that came from the idea of code transparency
     and not closed source where you some times don't know what the app really dose even if is free or not..
     This app is distributed under the GNU GPLv3 License .
     Usage: Is made for 1 machine only. You add the IP/Hostname(internal or external ), MAC address, and WOL port(Depending on your motherboard, the
     default port is 9 or can be changed by desire).
+
+    Copyright © 2020 0x78654C. All rights reserved.
 
     */
     SharedPreferences myPrefs;
