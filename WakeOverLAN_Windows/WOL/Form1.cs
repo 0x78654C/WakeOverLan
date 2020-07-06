@@ -174,7 +174,10 @@ namespace WOL
         private void button1_Click(object sender, EventArgs e)
 
         {
-            
+            _IP = textBox1.Text;    //loading  ip
+            _MAC = textBox2.Text;        //loading  MAC
+            _Port = textBox4.Text;      //loading Port
+
             if (_MAC != file.IniReadValue("CONNECTION", "MAC") || _Port != file.IniReadValue("CONNECTION", "Port") || _IP != file.IniReadValue("CONNECTION", "IPTarget"))
             {
                 //saving settings from textboxes to ini
@@ -260,8 +263,8 @@ namespace WOL
        //Check activity of host with ping function
         private void pping()
         {
-
-                if (PingHost(_IP) == true)
+            _IP = textBox1.Text;    //loading new imput ip
+            if (PingHost(_IP) == true)
                 {
                     label4.ForeColor = Color.Green;
                     label4.Text = "ONLINE";
