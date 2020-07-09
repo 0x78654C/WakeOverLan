@@ -258,13 +258,13 @@ Port=
                             }
 
                             int returnValue = client.Send(bytes, byteCount);
-                            TbLog.Text = Environment.NewLine + returnValue + " bytes sent to: " +Environment.NewLine + _IP + " / " + _MAC;
+                            TbLog.Text = "Magic packet of " + returnValue + " bytes is sent to: " +Environment.NewLine + _IP + " / " + _MAC;
                         }
 
                     }
                     else
                     {
-                        TbLog.Text = Environment.NewLine + "Remote client could not" +Environment.NewLine+" be set in broadcast mode!";
+                        TbLog.Text = "Remote client could not" +Environment.NewLine+" be set in broadcast mode. Please check your settings!";
                     }
                 }
                 catch (Exception)
