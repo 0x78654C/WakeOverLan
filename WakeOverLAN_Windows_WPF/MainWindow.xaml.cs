@@ -310,14 +310,14 @@ Port=
              Application.Current.Dispatcher.Invoke(
              new Action(() =>
               {
-             _IP = TbIPTarget.Text;    //loading new imput ip
+                  _IP = TbIPTarget.Text;    //loading new imput ip
               }
               ));
 
             if (PingHost(_IP) == true)
             {
 
-                Application.Current.Dispatcher.Invoke(
+               Application.Current.Dispatcher.Invoke(
                new Action(() =>
                {
                    lbDStatus.Foreground = Brushes.Green;
@@ -328,7 +328,7 @@ Port=
             }
             else
             {
-                Application.Current.Dispatcher.Invoke(
+               Application.Current.Dispatcher.Invoke(
                new Action(() =>
                {
                    lbDStatus.Foreground = Brushes.Red;
