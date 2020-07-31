@@ -58,9 +58,9 @@ public class MainActivity extends AppCompatActivity {
     TextView _stat; // Define the status text view
     ImageView _img1; // Define the image view for WiFi icon.
     ImageView _img2; // Define the image view for mobile data icon.
-    EditText iptext; //Define the textbox for IP address
-    EditText mactext; //Define the textbox for MAC address
-    EditText ptext; ////Define the textbox for WOL port
+    EditText ip_text; //Define the textbox for IP address
+    EditText mac_text; //Define the textbox for MAC address
+    EditText p_text; ////Define the textbox for WOL port
     //-----------------------------------
 
     @SuppressLint({"SetTextI18n", "ResourceType"})
@@ -98,12 +98,12 @@ public class MainActivity extends AppCompatActivity {
         String _ip = myPrefs.getString ("nameKey", "");
         String _mac = myPrefs.getString ("nameKey1", "");
         String _port = myPrefs.getString ("nameKey2", "");
-        iptext = findViewById (R.id.editText);
-        mactext = findViewById (R.id.editText2);
-        ptext = findViewById (R.id.editText3);
-        iptext.setText (_ip);
-        mactext.setText (_mac);
-        ptext.setText (_port);
+        ip_text = findViewById (R.id.editText);
+        mac_text = findViewById (R.id.editText2);
+        p_text = findViewById (R.id.editText3);
+        ip_text.setText (_ip);
+        mac_text.setText (_mac);
+        p_text.setText (_port);
         //-----------------------------------------------
 
         //Wake button function.
@@ -117,11 +117,11 @@ public class MainActivity extends AppCompatActivity {
                 new Thread (new Runnable () {
                     public void run() {
 
-                        iptext = findViewById (R.id.editText);
-                        mactext = findViewById (R.id.editText2);
+                        ip_text = findViewById (R.id.editText);
+                        mac_text = findViewById (R.id.editText2);
                         String broadcastIP;
-                        broadcastIP = String.valueOf (iptext.getText ());
-                        String mac = String.valueOf (mactext.getText ());
+                        broadcastIP = String.valueOf (ip_text.getText ());
+                        String mac = String.valueOf (mac_text.getText ());
                         Log.d ("Read mac= ", mac);
                         Log.d ("Read ip=", broadcastIP);
                         wakeup (broadcastIP, mac);
@@ -168,9 +168,9 @@ public class MainActivity extends AppCompatActivity {
 
                 m_handler = new Handler();
                 _stat = findViewById (R.id.textView2);
-                iptext = findViewById (R.id.editText);
+                ip_text = findViewById (R.id.editText);
                 try {
-                    if ( pingHost(iptext.getText ().toString ())) {
+                    if ( pingHost(ip_text.getText ().toString ())) {
                         _stat.setTextColor (Color.parseColor ("#10CD09"));
                         _stat.setText ("Online");
                         m_handler.postDelayed(new Runnable()
@@ -211,14 +211,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View _view) {
                 m_handler = new Handler();
-                iptext = findViewById (R.id.editText);
-                mactext = findViewById (R.id.editText2);
-                ptext = findViewById (R.id.editText3);
+                ip_text = findViewById (R.id.editText);
+                mac_text = findViewById (R.id.editText2);
+                p_text = findViewById (R.id.editText3);
                 myPrefs = getSharedPreferences ("prefID", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = myPrefs.edit ();
-                editor.putString ("nameKey", iptext.getText ().toString ());
-                editor.putString ("nameKey1", mactext.getText ().toString ());
-                editor.putString ("nameKey2", ptext.getText ().toString ());
+                editor.putString ("nameKey", ip_text.getText ().toString ());
+                editor.putString ("nameKey1", mac_text.getText ().toString ());
+                editor.putString ("nameKey2", p_text.getText ().toString ());
                 editor.apply ();
                 _stat = findViewById (R.id.textView2);
                 _stat.setTextColor (Color.parseColor ("#D2C01C"));
@@ -399,8 +399,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             Log.d ("wakeup", "calculating completed, sending...");
-            EditText ptext1 = findViewById (R.id.editText3);
-            int in1 = Integer.parseInt (ptext1.getText ().toString ());
+            EditText p_text1 = findViewById (R.id.editText3);
+            int in1 = Integer.parseInt (p_text1.getText ().toString ());
             InetAddress address = InetAddress.getByName (broadcastIP);
             DatagramPacket packet = new DatagramPacket (bytes, bytes.length, address, in1);
             DatagramSocket socket = new DatagramSocket ();
