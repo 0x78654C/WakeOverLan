@@ -2,13 +2,11 @@ package com.example.administrator.wol;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,15 +18,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,13 +46,22 @@ public class MainActivity extends AppCompatActivity {
     SOFTWARE.
 
     */
-    SharedPreferences myPrefs;
 
-    private static final String MAC_REGEX = "([0-9a-fA-F]{2}[-:]){5}[0-9a-fA-F]{2}";
+
+    //Declaring global variables
+    SharedPreferences myPrefs; //Define share preferences variables for saving settings
+    private static final String MAC_REGEX = "([0-9a-fA-F]{2}[-:]){5}[0-9a-fA-F]{2}"; //Define regex definitions
     public Handler handler = null; //Define handler for _conCheck function
     public static Runnable runnable = null; //Define runnable for the handler on _conCheck function
     public Handler m_handler;//Define the handler for information messages on button's action
     public Handler m_handler1;//Define the handler for orientation check
+    TextView _stat; // Define the status text view
+    ImageView _img1; // Define the image view for WiFi icon.
+    ImageView _img2; // Define the image view for mobile data icon.
+    EditText iptext; //Define the textbox for IP address
+    EditText mactext; //Define the textbox for MAC address
+    EditText ptext; ////Define the textbox for WOL port
+    //-----------------------------------
 
     @SuppressLint({"SetTextI18n", "ResourceType"})
     @Override
@@ -67,10 +69,10 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_main);
-        TextView _stat = findViewById (R.id.textView2);
-        ImageView _img1 = findViewById (R.id.imageView);
+        _stat = findViewById (R.id.textView2);
+        _img1 = findViewById (R.id.imageView);
         _img1.setImageResource(R.raw.wifi_ico_grey_24);
-        ImageView _img2 = findViewById (R.id.imageView2);
+        _img2 = findViewById (R.id.imageView2);
         _img2.setImageResource(R.raw.net_grey_data);
 
         //Display wifi icon if is up or down
@@ -96,9 +98,9 @@ public class MainActivity extends AppCompatActivity {
         String _ip = myPrefs.getString ("nameKey", "");
         String _mac = myPrefs.getString ("nameKey1", "");
         String _port = myPrefs.getString ("nameKey2", "");
-        EditText iptext = findViewById (R.id.editText);
-        EditText mactext = findViewById (R.id.editText2);
-        EditText ptext = findViewById (R.id.editText3);
+        iptext = findViewById (R.id.editText);
+        mactext = findViewById (R.id.editText2);
+        ptext = findViewById (R.id.editText3);
         iptext.setText (_ip);
         mactext.setText (_mac);
         ptext.setText (_port);
@@ -110,13 +112,13 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View _view) {
-                TextView _stat = findViewById (R.id.textView2);
+                _stat = findViewById (R.id.textView2);
                 m_handler = new Handler();
                 new Thread (new Runnable () {
                     public void run() {
 
-                        EditText iptext = findViewById (R.id.editText);
-                        EditText mactext = findViewById (R.id.editText2);
+                        iptext = findViewById (R.id.editText);
+                        mactext = findViewById (R.id.editText2);
                         String broadcastIP;
                         broadcastIP = String.valueOf (iptext.getText ());
                         String mac = String.valueOf (mactext.getText ());
@@ -132,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                     _stat.setText ("Wake packets sent!");
                     m_handler.postDelayed (new Runnable () {
                         public void run() {
-                            TextView _stat = findViewById (R.id.textView2);
+                            _stat = findViewById (R.id.textView2);
                             _stat.setTextColor (Color.MAGENTA);
                             _stat.setText ("");
                         }
@@ -144,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                     _stat.setText ("No internet connection!");
                     m_handler.postDelayed (new Runnable () {
                         public void run() {
-                            TextView _stat = findViewById (R.id.textView2);
+                            _stat = findViewById (R.id.textView2);
                             _stat.setTextColor (Color.MAGENTA);
                             _stat.setText ("");
                         }
@@ -165,8 +167,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View _view) {
 
                 m_handler = new Handler();
-                 TextView _stat = findViewById (R.id.textView2);
-                 EditText iptext = findViewById (R.id.editText);
+                _stat = findViewById (R.id.textView2);
+                iptext = findViewById (R.id.editText);
                 try {
                     if ( pingHost(iptext.getText ().toString ())) {
                         _stat.setTextColor (Color.parseColor ("#10CD09"));
@@ -175,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                         {
                             public void run()
                             {
-                                TextView _stat = findViewById (R.id.textView2);
+                                _stat = findViewById (R.id.textView2);
                                 _stat.setTextColor (Color.MAGENTA);
                                 _stat.setText ("");
                             }
@@ -187,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
                         {
                             public void run()
                             {
-                                TextView _stat = findViewById (R.id.textView2);
+                                _stat = findViewById (R.id.textView2);
                                 _stat.setTextColor (Color.MAGENTA);
                                 _stat.setText ("");
                             }
@@ -209,23 +211,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View _view) {
                 m_handler = new Handler();
-                final EditText iptext = findViewById (R.id.editText);
-                final EditText mactext = findViewById (R.id.editText2);
-                final EditText ptext = findViewById (R.id.editText3);
+                iptext = findViewById (R.id.editText);
+                mactext = findViewById (R.id.editText2);
+                ptext = findViewById (R.id.editText3);
                 myPrefs = getSharedPreferences ("prefID", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = myPrefs.edit ();
                 editor.putString ("nameKey", iptext.getText ().toString ());
                 editor.putString ("nameKey1", mactext.getText ().toString ());
                 editor.putString ("nameKey2", ptext.getText ().toString ());
                 editor.apply ();
-                TextView _stat = findViewById (R.id.textView2);
+                _stat = findViewById (R.id.textView2);
                 _stat.setTextColor (Color.parseColor ("#D2C01C"));
                 _stat.setText ("IP/MAC/Port saved!");
                 m_handler.postDelayed(new Runnable()
                 {
                     public void run()
                     {
-                        TextView _stat = findViewById (R.id.textView2);
+                        _stat = findViewById (R.id.textView2);
                         _stat.setTextColor (Color.MAGENTA);
                         _stat.setText ("");
                     }
@@ -246,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
         {
             public void run()
             {
-                TextView _stat = findViewById (R.id.textView3);
+                _stat = findViewById (R.id.textView3);
                 if (orientation == Configuration.ORIENTATION_PORTRAIT) {
                     _stat.setVisibility(View.VISIBLE);
                 } else {
@@ -297,9 +299,9 @@ public class MainActivity extends AppCompatActivity {
         handler = new Handler ();
         runnable = new Runnable () {
             public void run() {
-                ImageView _img1 = findViewById (R.id.imageView);
+                _img1 = findViewById (R.id.imageView);
                 _img1.setImageResource (R.raw.wifi_ico_grey_24);
-                ImageView _img2 = findViewById (R.id.imageView2);
+                _img2 = findViewById (R.id.imageView2);
                 _img2.setImageResource (R.raw.net_grey_data);
 
                 //Display wifi icon if is up or down
