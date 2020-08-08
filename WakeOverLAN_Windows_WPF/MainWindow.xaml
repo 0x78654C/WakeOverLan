@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WOL"
-        xmlns:adorners="http://gu.se/Adorners"
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -12,6 +11,32 @@
         
         Title="Wake Over LAN" Height="463.975" Width="365.898" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" MouseDown="Window_MouseDown" Icon="wol_ico.ico">
     <Window.Resources>
+        <Style x:Key="MyWaterMarkStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        
+                        <Grid>
+                            <Border Background="White" BorderBrush="#FF7D8683" BorderThickness="1" CornerRadius="10"/>
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="5,0,0,0" VerticalAlignment="Center" />
+                            <Label Margin="5,0,0,0" x:Name="WaterMarkLabel" Content="{TemplateBinding Tag}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Visibility="Collapsed" Foreground="Gray" FontFamily="Arial"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Text" Value=""/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Visibility" TargetName="WaterMarkLabel" Value="Visible"/>
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="DimGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <ControlTemplate x:Key="TextBoxBaseControlTemplate" TargetType="{x:Type TextBoxBase}">
             <Border Background="{TemplateBinding Background}" 
                 x:Name="Bd" BorderBrush="Black"
@@ -29,8 +54,11 @@
                 <Trigger Property="Height" Value="Auto">
                     <Setter Property="MinHeight" Value="20"/>
                 </Trigger>
+                
             </ControlTemplate.Triggers>
+            
         </ControlTemplate>
+        
     </Window.Resources>
 
     <Border BorderThickness="1,1,1,1" CornerRadius="8" Background="White" BorderBrush="Black">
@@ -41,9 +69,9 @@
                 <ColumnDefinition Width="0*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox adorners:Watermark.Text="     Enter your target IP address" adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused" Name="TbIPTarget" TextAlignment="Center" Template="{StaticResource TextBoxBaseControlTemplate}" Margin="57,86,57,350" FontSize="16" MaxLength="20" TextWrapping="Wrap" />
-            <TextBox adorners:Watermark.Text="   Enter your target MAC address" adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused" Name="TbMAC" TextAlignment="Center"  Template="{StaticResource TextBoxBaseControlTemplate}" Margin="57,138,57,298" FontSize="16" FontStretch="Condensed" MaxLength="25" TextWrapping="Wrap"/>
-            <TextBox adorners:Watermark.Text="           Enter your WOL port" adorners:Watermark.VisibleWhen="EmptyAndNotKeyboardFocused" Name="TbPort" TextAlignment="Center"  Template="{StaticResource TextBoxBaseControlTemplate}" Margin="57,191,57,245" FontSize="16" MaxLength="7" TextOptions.TextFormattingMode="Display" TextWrapping="Wrap"/>
+            <TextBox Style="{StaticResource MyWaterMarkStyle}" Tag="Enter your IP/Name address here.." Name="TbIPTarget" TextAlignment="Center" Margin="57,86,57,347" FontSize="16" MaxLength="20" FontStretch="Condensed" TextWrapping="Wrap" />
+            <TextBox Style="{StaticResource MyWaterMarkStyle}" Tag="Enter your MAC address here.." Name="TbMAC" TextAlignment="Center" Margin="57,138,57,293" FontSize="16" FontStretch="Condensed" MaxLength="25" TextWrapping="Wrap"/>
+            <TextBox Style="{StaticResource MyWaterMarkStyle}" Tag="Enter your WOL Port here.." Name="TbPort" TextAlignment="Center" Margin="57,191,57,241" FontSize="16" MaxLength="7" FontStretch="Condensed" TextWrapping="Wrap"/>
             <Button Style="{DynamicResource RoundCorner}" Name="BtnWake" Content="Wake Target" HorizontalAlignment="Left" Margin="131,250,0,0" VerticalAlignment="Top" Width="101" Height="43" Click="BtnWake_Click" FontSize="14" FontWeight="Bold" Foreground="#FFF7F7F7"/>
             <TextBox Name="TbLog" AcceptsReturn="True" IsReadOnly="True" TextAlignment="Center"  Template="{StaticResource TextBoxBaseControlTemplate}" Margin="57,325,57,67" FontSize="14" TextOptions.TextFormattingMode="Display" TextWrapping="Wrap"/>
             <Label Content="Wake Over LAN" HorizontalAlignment="Left" Margin="108,26,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Foreground="#FF094E7E"/>

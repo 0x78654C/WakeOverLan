@@ -38,9 +38,6 @@
     <ApplicationIcon>wol_ico.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Gu.Wpf.Adorners">
-      <HintPath>bin\Release\Gu.Wpf.Adorners.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />

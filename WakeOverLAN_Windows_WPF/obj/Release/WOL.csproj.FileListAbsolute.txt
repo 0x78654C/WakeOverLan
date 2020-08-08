@@ -19,7 +19,6 @@ F:\dropB\Dropbox\source_code\WPF_Projects\WOL\obj\Release\WOL.pdb
 F:\dropB\Dropbox\source_code\git\WakeOverLAN_Windows_WPF\bin\Release\WOL.exe.config
 F:\dropB\Dropbox\source_code\git\WakeOverLAN_Windows_WPF\bin\Release\WOL.exe
 F:\dropB\Dropbox\source_code\git\WakeOverLAN_Windows_WPF\bin\Release\WOL.pdb
-F:\dropB\Dropbox\source_code\git\WakeOverLAN_Windows_WPF\bin\Release\Gu.Wpf.Adorners.xml
 F:\dropB\Dropbox\source_code\git\WakeOverLAN_Windows_WPF\obj\Release\WOL.csprojAssemblyReference.cache
 F:\dropB\Dropbox\source_code\git\WakeOverLAN_Windows_WPF\obj\Release\MainWindow.g.cs
 F:\dropB\Dropbox\source_code\git\WakeOverLAN_Windows_WPF\obj\Release\App.g.cs
@@ -31,6 +30,5 @@ F:\dropB\Dropbox\source_code\git\WakeOverLAN_Windows_WPF\obj\Release\WOL.g.resou
 F:\dropB\Dropbox\source_code\git\WakeOverLAN_Windows_WPF\obj\Release\WOL.Properties.Resources.resources
 F:\dropB\Dropbox\source_code\git\WakeOverLAN_Windows_WPF\obj\Release\WOL.csproj.GenerateResource.cache
 F:\dropB\Dropbox\source_code\git\WakeOverLAN_Windows_WPF\obj\Release\WOL.csproj.CoreCompileInputs.cache
-F:\dropB\Dropbox\source_code\git\WakeOverLAN_Windows_WPF\obj\Release\WOL.csproj.CopyComplete
 F:\dropB\Dropbox\source_code\git\WakeOverLAN_Windows_WPF\obj\Release\WOL.exe
 F:\dropB\Dropbox\source_code\git\WakeOverLAN_Windows_WPF\obj\Release\WOL.pdb

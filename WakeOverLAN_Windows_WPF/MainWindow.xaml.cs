@@ -33,7 +33,6 @@ namespace WOL
     Usage: Is made for 1 machine only. You add the IP/Hostname(internal or external ), MAC address, and WOL port(Depending on your motherboard, the
     default port is 9 or can be changed by desire).
     Requirements: .NET Framework 4.5 +
-    This project uses following librabry for watermark on textboxes: https://github.com/GuOrg/Gu.Wpf.Adorners
 
     This app is distributed under the MIT License.
     Copyright © 2020 0x78654C. All rights reserved.
@@ -90,8 +89,8 @@ Port=
                 _Port = file.IniReadValue("CONNECTION", "Port");
 
                 TbIPTarget.Text = _IP;    //Display ip
-                TbMAC.Text = _MAC;   //Display MAC
-                TbPort.Text = _Port;  //Display Port
+                TbMAC.Text = _MAC;        //Display MAC
+                TbPort.Text = _Port;      //Display Port
 
             }
             //--------------------------------
