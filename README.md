@@ -8,6 +8,9 @@ The project can be updated for your needs and requirements.
 
 Windows project:
 
+![alt text](https://github.com/0x78654C/WakeOverLan/blob/master/WakeOverLAN_Windows_WPF/wpf.png?raw=true)
+
+
 *Is build in C# under .NET Framework 4.5 for more compatibility among Windows users.
 
    - FEATURES:
@@ -20,6 +23,7 @@ Windows project:
 
 Android project:
 
+![alt text](https://github.com/0x78654C/WakeOverLan/blob/master/WakeOverLan_Android/android.jpg?raw=true)
   
 *Is build for andoird users that has Android O and up.
 
@@ -33,6 +37,7 @@ Android project:
 	
 iOS project:
 
+![alt text](https://github.com/0x78654C/WakeOverLan/blob/master/WakeOverLAN_iOS/iOS.png?raw=true)
 
 *Is build for iPhone users that has iOS 11 and up.
 
