@@ -1,4 +1,9 @@
 # WakeOverLan
+
+[![Build status](https://ci.appveyor.com/api/projects/status/tu9f3btw7jbv4jkp/branch/master?svg=true)](https://ci.appveyor.com/project/0x78654C/wakeoverlan/branch/master)
+
+
+
 I'm a simple coder and want to share this first published project with you.
 This a simple Wake Over Lan for Windows and Android users.
 The project came from the ideea of code transparency in a tool. I kind of had enough of closed source wich you never know
