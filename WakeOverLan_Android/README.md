@@ -13,4 +13,4 @@ The project will be update by your needs if required .
     
     *Android O or newer.
 
-If you like it you can donate via paypal to l2xguard@live.com
+
