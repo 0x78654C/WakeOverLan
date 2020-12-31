@@ -15,4 +15,3 @@ The project will be update by your needs if required .
 
     * .NET Framework 4.5 or newer.
 
-If you like it you can donate via paypal to l2xguard@live.com
