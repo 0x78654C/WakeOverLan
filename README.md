@@ -59,4 +59,3 @@ iOS project:
     * iOS 11 +
 
 
-If you like the project you can donate to my paypal: l2xguard@live.com
